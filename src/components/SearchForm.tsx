@@ -1,7 +1,7 @@
 import { Box, TextField, MenuItem } from '@mui/material';
 import { useAppContext } from '../context/AppContext';
 
-const categories = ['Standard', 'Deluxe', 'Suite'];
+const categories = ['SINGLE', 'DOUBLE', 'LUXURY'];
 
 export default function SearchForm() {
   const { filters, setFilters } = useAppContext();

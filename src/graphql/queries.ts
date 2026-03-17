@@ -1,15 +1,16 @@
 import { gql } from '@apollo/client';
 
-export const GET_ROOMS = gql`
-  query Rooms {
-    rooms {
+export const GET_AVAIL_ROOMS = gql`
+  query SearchAvailableRooms($input: SearchRoomInput!) {
+    searchAvailableRooms(input: $input) {
+      id
       number
-      price
       category
+      price
       bookings {
-        status
-        checkOut
         checkIn
+        checkOut
+        status
       }
     }
   }
