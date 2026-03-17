@@ -18,6 +18,7 @@ interface BookingFormData {
   guestInfo: GuestInfo;
   paymentInfo: PaymentInfo;
   roomNumber?: string;
+  roomId?: number;
 }
 
 interface BookingFormContextType {
@@ -25,10 +26,11 @@ interface BookingFormContextType {
   updateGuestInfo: (data: GuestInfo) => void;
   updatePaymentInfo: (data: PaymentInfo) => void;
   setRoomNumber: (roomNumber: string) => void;
+  setRoomId: (roomId: number) => void;
   currentStep: number;
   setCurrentStep: (step: number) => void;
   isFormOpen: boolean;
-  openForm: (roomNumber: string) => void;
+  openForm: (roomNumber: string, roomId: number) => void;
   closeForm: () => void;
 }
 
@@ -64,8 +66,13 @@ export function BookingFormProvider({ children }: { children: ReactNode }) {
     setFormData(prev => ({ ...prev, roomNumber }));
   };
 
-  const openForm = (roomNumber: string) => {
+  const setRoomId = (roomId: number) => {
+    setFormData(prev => ({ ...prev, roomId }));
+  };
+
+  const openForm = (roomNumber: string, roomId: number) => {
     setRoomNumber(roomNumber);
+    setRoomId(roomId);
     setCurrentStep(0);
     setIsFormOpen(true);
   };
@@ -82,6 +89,7 @@ export function BookingFormProvider({ children }: { children: ReactNode }) {
         updateGuestInfo,
         updatePaymentInfo,
         setRoomNumber,
+        setRoomId,
         currentStep,
         setCurrentStep,
         isFormOpen,

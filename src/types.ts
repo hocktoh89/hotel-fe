@@ -9,6 +9,7 @@ export interface Room {
   price: number;
   category: string;
   bookings: Booking[];
+  id: number;
 }
 
 export interface SearchFilters {

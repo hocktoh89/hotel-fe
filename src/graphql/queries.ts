@@ -15,3 +15,13 @@ export const GET_AVAIL_ROOMS = gql`
     }
   }
 `;
+
+export const CREATE_BOOKING = gql`
+  mutation CreateBooking($input: BookingInput!) {
+    createBooking(input: $input) {
+      code
+      status
+      success
+    }
+  }
+`;

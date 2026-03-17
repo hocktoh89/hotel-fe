@@ -32,7 +32,7 @@ export default function RoomList() {
         {rooms.map((room: Room) => (
           <Grid item xs={12} sm={6} md={4} key={room.number}>
             <Card>
-              <CardActionArea onClick={() => openForm(room.number)}>
+              <CardActionArea onClick={() => openForm(room.number, room.id)}>
                 <CardContent>
                   <Typography variant="h6">Room {room.number}</Typography>
                   <Typography color="text.secondary">{room.category}</Typography>
