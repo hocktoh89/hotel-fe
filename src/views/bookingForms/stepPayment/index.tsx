@@ -8,7 +8,7 @@ import { useBookingFormContext, PaymentInfo } from '../../../context/BookingForm
 import { useAppContext } from '../../../context/AppContext';
 import { CREATE_BOOKING } from '../../../graphql/queries';
 
-const CUSTOMER_ID = 'cmmtzmug00000deetduqhfyek';
+const CUSTOMER_ID = 'cmmu7rhuj0002emetxlofr78x';
 
 const schema = yup.object({
   cardNumber: yup.string().matches(/^\d{16}$/, 'Card number must be 16 digits').required('Card number is required'),
