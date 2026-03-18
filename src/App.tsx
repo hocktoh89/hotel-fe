@@ -1,5 +1,6 @@
 import { ApolloProvider } from '@apollo/client';
 import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
+import { AuthProvider } from './context/AuthContext';
 import { AppProvider } from './context/AppContext';
 import { BookingFormProvider } from './context/BookingFormContext';
 import client from './graphql/client';
@@ -12,11 +13,13 @@ export default function App() {
     <ApolloProvider client={client}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <AppProvider>
-          <BookingFormProvider>
-            <RoomSearch />
-          </BookingFormProvider>
-        </AppProvider>
+        <AuthProvider>
+          <AppProvider>
+            <BookingFormProvider>
+              <RoomSearch />
+            </BookingFormProvider>
+          </AppProvider>
+        </AuthProvider>
       </ThemeProvider>
     </ApolloProvider>
   );

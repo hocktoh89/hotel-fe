@@ -25,3 +25,14 @@ export const CREATE_BOOKING = gql`
     }
   }
 `;
+
+export const LOGIN = gql`
+  mutation Login($input: LoginInput!) {
+    login(input: $input) {
+      code
+      success
+      message
+      token
+    }
+  }
+`;
