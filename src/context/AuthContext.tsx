@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, ReactNode } from 'react';
 import { useMutation } from '@apollo/client';
 import { LOGIN } from '../graphql/queries';
 
@@ -23,15 +23,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }
       });
 
+      console.log('Login response:', data);
+
       if (data?.login?.success && data?.login?.token) {
-        setToken(data.login.token);
-        localStorage.setItem('authToken', data.login.token);
+        const authToken = data.login.token;
+        setToken(authToken);
+        localStorage.setItem('authToken', authToken);
         return { success: true };
       }
 
       return { success: false, message: data?.login?.message || 'Login failed' };
-    } catch (error) {
-      return { success: false, message: 'Network error' };
+    } catch (error: any) {
+      console.error('Login error:', error);
+      return { success: false, message: error?.message || 'Network error' };
     }
   };
 
