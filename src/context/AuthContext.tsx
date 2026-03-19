@@ -4,7 +4,6 @@ import { LOGIN } from '../graphql/queries';
 
 interface AuthContextType {
   isAuthenticated: boolean;
-  token: string | null;
   login: (email: string, password: string) => Promise<{ success: boolean; message?: string }>;
   logout: () => void;
 }
@@ -12,7 +11,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [token, setToken] = useState<string | null>(localStorage.getItem('authToken'));
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [loginMutation] = useMutation(LOGIN);
 
   const login = async (email: string, password: string) => {
@@ -25,10 +24,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       console.log('Login response:', data);
 
-      if (data?.login?.success && data?.login?.token) {
-        const authToken = data.login.token;
-        setToken(authToken);
-        localStorage.setItem('authToken', authToken);
+      if (data?.login?.success) {
+        setIsAuthenticated(true);
+        // Cookie is automatically set by browser from Set-Cookie header
         return { success: true };
       }
 
@@ -40,15 +38,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const logout = () => {
-    setToken(null);
-    localStorage.removeItem('authToken');
+    setIsAuthenticated(false);
+    // You may want to call a logout mutation to clear the cookie on the backend
   };
 
   return (
     <AuthContext.Provider 
       value={{ 
-        isAuthenticated: !!token,
-        token,
+        isAuthenticated,
         login,
         logout
       }}

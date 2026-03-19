@@ -32,7 +32,6 @@ export const LOGIN = gql`
       code
       success
       message
-      token
     }
   }
 `;
